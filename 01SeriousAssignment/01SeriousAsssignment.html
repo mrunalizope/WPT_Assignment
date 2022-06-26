@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Assignment 1</title>
+
+<script>
+const Array=[ {ArrayNum:1},{ArrayNum:2},{ArrayNum:3},
+	{ArrayNum:4},{ArrayNum:5},{ArrayNum:6},
+	{ArrayNum:7},{ArrayNum:8},{ArrayNum:9},
+	{ArrayNum:10}]; 
+
+
+window.addEventListener('DOMContentLoaded', ()=>{
+
+const ArrText = document.querySelector("#ArrText");
+ArrText.addEventListener('blur',()=>{
+console.log("blur event");
+let ArrNo= document.querySelector("#ArrText").value;
+
+let output=getNumDetails(ArrNo);
+
+if(output.result)
+{	
+	document.querySelector("#edit").disabled=false;
+	document.querySelector("#delete").disabled=false;
+	document.querySelector("#msg").innerText="Number found";
+	document.querySelector("#add").disabled=true;
+		document.querySelector("#ShowAll").disabled=true;
+	document.querySelector("#OddPsoition").disabled=true;
+}
+else
+{
+
+document.querySelector("#add").disabled=false;
+	document.querySelector("#edit").disabled=true;
+	document.querySelector("#delete").disabled=true;
+	document.querySelector("#msg").innerText="Number not found";
+	document.querySelector("#ShowAll").disabled=true;
+	document.querySelector("#OddPsoition").disabled=true;
+	document.querySelector("#Contents").innerText="";
+}
+
+});
+const add = document.querySelector("#add");
+	add.addEventListener('click',()=>{
+let input=document.querySelector("#ArrText").value;
+let output=addNoInArray(input);
+	
+	if(output==1){
+		document.querySelector("#msg").innerText="Number updated successfully";
+		document.querySelector("#add").disabled=true;
+		displayArray();
+	}
+	
+	
+	});
+	
+const deleteNO = document.querySelector("#delete");
+	deleteNO.addEventListener('click',()=>{
+let input=document.querySelector("#ArrText").value;
+let output=deleteNOArray(input);
+	
+	if(output==true){
+		document.querySelector("#msg").innerText="Number Deleted successfully";
+		document.querySelector("#add").disabled=true;
+		document.querySelector("#delete").disabled=true;
+		document.querySelector("#edit").disabled=true;
+		displayArray();
+	}
+	
+	
+	});
+
+	
+	
+function getNumDetails(num)
+{
+let output ={ result:false, ArrayOut:{}};
+for(let i=0; i < Array.length; i++)
+{
+if(Array[i].ArrayNum == num )
+{	
+	output.result=true;
+	output.ArrayOut=Array[i];
+	break;
+}
+
+}
+return output;
+}
+
+function addNoInArray(num){
+let i=(Array.length-1);
+Array[i].ArrayNum=num;
+return 1;
+}
+
+
+
+
+
+function displayArray(){
+	let Arrdis=Array;
+	
+	
+	let msg="";
+	for(let i=0; i < Arrdis.length; i++)
+	msg+=Arrdis[i].ArrayNum+" ";
+	document.querySelector("#contents").innerHTML=msg;
+}
+
+function deleteNOArray(num)
+{
+for(let i=0; i < Array.length; i++)
+{
+if(Array[i].ArrayNum == num )
+{	
+	Array.splice(i,1);
+	break;
+}
+
+}
+return true;
+}
+
+
+
+
+});
+
+</script>
+<style>
+</style>
+</head>
+<body>
+<h1>Pre Define Array of Numbers</h1>
+<hr/>
+<input type="text" id="ArrText" placeholder="Numbers"><span id="msg">  Indication Message</span>
+</br><button id="add" disabled>add number</button>
+<button id="edit" disabled>edit</button>
+<button id="delete" disabled>delete</button>
+<button id="ShowAll" disabled>show all</button>
+<button id="OddPsoition" disabled>show odd position</button>
+</br>
+<p id="Contents"> I will show you desired output</p>
+</body>
+</html>
